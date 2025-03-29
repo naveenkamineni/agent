@@ -53,10 +53,15 @@ docker run -itd --name deepseek-agent -p 5008:5000 deepseek
 # to move into the running docker container
 
 [ec2-user@ip-10-230-186-188 ~]$ docker ps
+
 CONTAINER ID   IMAGE      COMMAND           CREATED          STATUS          PORTS                                       NAMES
+
 ee9048031e75   deepseek   "python app.py"   34 minutes ago   Up 34 minutes   0.0.0.0:5007->5000/tcp, :::5007->5000/tcp   deepseek-agent
+
 [ec2-user@ip-10-230-186-188 ~]$ docker exec -it deepseek-agent sh
+
 # ls
+
 Dockerfile  README.md  __pycache__  app.py  config.py  requirements.txt  templates
 
 # To check deepseek-agent app running on web browser
