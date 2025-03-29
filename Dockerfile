@@ -11,8 +11,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy only necessary files
-COPY .env config.py /app/
-COPY templates/index.html /app/templates/
+COPY . /app/
 
 # Ensure environment variables are loaded
 ENV FLASK_APP=app.py
