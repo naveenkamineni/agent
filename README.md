@@ -36,10 +36,16 @@ cd agent
 
 <img width="170" alt="image" src="https://github.com/user-attachments/assets/7fabacba-5d0d-4e1f-a284-176e73130689" />
 
+# make sure you have OpenRouter Deepseek-V3 0342 API on .env file
+
+.env/
+
+OPENROUTER_API_KEY = ""
+
 # write docker build command to build image using Docker file 
 Note: Once's you are in correct folder agent/
 
-Command: Docker build --no-cache -t deepseek .
+Command : Docker build --no-cache -t deepseek .
 
 # Run Container from docker image build from Dockerfile
 docker run -itd --name deepseek-agent -p 5008:5000 deepseek
