@@ -2,7 +2,9 @@
 Your EC2 instance must allow inbound traffic on port 5000.
 
 1️⃣ Go to AWS Console → EC2 → Security Groups
+
 2️⃣ Find the security group attached to your EC2 instance
+
 3️⃣ Edit Inbound Rules → Add a Rule:
 
 Type: Custom TCP
@@ -10,12 +12,18 @@ Port Range: 5000
 Source: 0.0.0.0/0 (or your IP for security)
 click save
 # make sure you have Docker on ec2 machine
-###### commands t install docker on ec2 ##########
+###### commands to install docker on ec2 ##########
+
 Note:when using Amazon Linux Machine
+
 sudo yum update -y
+
 sudo yum install docker -y
+
 sudo service docker start
+
 sudo usermod -aG docker ec2-user
+
 # To check Docker installed successfully
 docker ps
 ######### You will see #############
