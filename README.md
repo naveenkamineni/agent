@@ -27,9 +27,7 @@ sudo usermod -aG docker ec2-user
 # To check Docker installed successfully
 docker ps
 
-# you will see this if docker installed
- 
-CONTAINER ID   IMAGE      COMMAND           CREATED          STATUS          PORTS 
+CONTAINER ID     IMAGE        COMMAND             CREATED            STATUS            PORTS 
 # To run this agent bot on Docker
 Step 1: git clone repo
 git clone https://github.com/naveenkamineni/agent.git
@@ -41,14 +39,13 @@ cd agent
 # write docker build command to build image using Docker file 
 Note: Once's you are in correct folder agent/
 
-To check you are correct folder Type pwd(you see path) or ls( you can see project files)
+Command: Docker build --no-cache -t deepseek .
 
-Docker build --no-cache -t deepseek .
 # Run Container from docker image build from Dockerfile
 docker run -itd --name deepseek-agent -p 5008:5000 deepseek
 
 # To check deepseek-agent app running on web browser
 
-http://<ec2-machine-ip>:5008/
+http://{ec2-machine-ip}:5008/
 
 
