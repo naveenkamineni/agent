@@ -1,85 +1,136 @@
-# if you running any application on aws ec2-machine make sure to provide permission in ec2 inbound rules
-Your EC2 instance must allow inbound traffic on port 5000.
+# Deploying DeepSeek-Agent on AWS EC2 with Docker
 
-1️⃣ Go to AWS Console → EC2 → Security Groups
+## 🚀 Prerequisites
+Before deploying the **DeepSeek-Agent** on your AWS EC2 instance, ensure the following:
 
-2️⃣ Find the security group attached to your EC2 instance
+✅ You have an **AWS EC2 instance** running (Amazon Linux recommended).  
+✅ **Docker** is installed on the EC2 instance.  
+✅ **Security group** allows inbound traffic on port **5008**.  
+✅ **OpenRouter API Key** is available in a `.env` file.
 
-3️⃣ Edit Inbound Rules → Add a Rule:
+---
 
-Type: Custom TCP
-Port Range: 5000
-Source: 0.0.0.0/0 (or your IP for security)
-click save
-# make sure you have installed Docker on ec2 machine
-###### commands to install docker on ec2 ##########
+## 🔹 Step 1: Configure EC2 Security Group
 
-Note:when using Amazon Linux Machine
+Your EC2 instance must allow inbound traffic on **port 5008** to access the application via a web browser.
 
+1️⃣ Navigate to **AWS Console → EC2 → Security Groups**.  
+2️⃣ Locate the security group associated with your EC2 instance.  
+3️⃣ Click **Edit Inbound Rules** → **Add Rule**:
+   - **Type**: Custom TCP
+   - **Port Range**: **5008**
+   - **Source**: `0.0.0.0/0` (or specify your IP for better security)
+4️⃣ Click **Save Rules**.
+
+---
+
+## 🔹 Step 2: Install Docker on EC2 (Amazon Linux)
+Run the following commands to install Docker:
+```bash
 sudo yum update -y
-
 sudo yum install docker -y
-
 sudo service docker start
-
 sudo usermod -aG docker ec2-user
+```
 
-# To check Docker installed successfully
+✅ **Verify Docker installation:**
+```bash
 docker ps
+```
 
-CONTAINER ID     IMAGE        COMMAND             CREATED            STATUS            PORTS 
-# To run this agent bot on Docker
-Step 1: git clone repo
+---
+
+## 🔹 Step 3: Clone the DeepSeek-Agent Repository
+
+```bash
 git clone https://github.com/naveenkamineni/agent.git
-# move directory
 cd agent
+```
 
-<img width="170" alt="image" src="https://github.com/user-attachments/assets/7fabacba-5d0d-4e1f-a284-176e73130689" />
-
-# make sure you have OpenRouter Deepseek-V3 0342 API on .env file
-
+✅ Ensure you have the **OpenRouter API Key** in the `.env` file:
+```
 .env/
+OPENROUTER_API_KEY = "your-api-key"
+```
 
-OPENROUTER_API_KEY = ""
+---
 
-# write docker build command to build image using Docker file 
-Note: Once's you are in correct folder agent/
+## 🔹 Step 4: Build and Run the Docker Container
 
-Command : Docker build --no-cache -t deepseek .
+1️⃣ **Build the Docker Image**
+```bash
+docker build --no-cache -t deepseek .
+```
 
-# Run Container from docker image build from Dockerfile
+2️⃣ **Run the Container**
+```bash
 docker run -itd --name deepseek-agent -p 5008:5000 deepseek
+```
 
-# to move into the running docker container
+---
 
-[ec2-user@ip-10-230-186-188 ~]$ docker ps
+## 🔹 Step 5: Verify the Running Container
 
-CONTAINER ID        IMAGE           COMMAND                CREATED                 STATUS               PORTS                                            NAMES
+Check if the container is running:
+```bash
+docker ps
+```
 
-ee9048031e75        deepseek     "python app.py"         34 minutes ago         Up 34 minutes         0.0.0.0:5008->5000/tcp, :::5007->5000/tcp       deepseek-agent
+If the container is not running, check logs for errors:
+```bash
+docker logs deepseek-agent
+```
 
-[ec2-user@ip-10-230-186-188 ~]$     docker exec -it deepseek-agent sh
+To enter the running container:
+```bash
+docker exec -it deepseek-agent sh
+```
 
-# #ls
+---
 
-Dockerfile       README.md       __pycache__       app.py        config.py       requirements.txt       templates
+## 🔹 Step 6: Access DeepSeek-Agent in Browser
+Once the container is running, access the application using:
 
-# To check deepseek-agent app running on web browser
+🌍 `http://{EC2-PUBLIC-IP}:5008/`
 
-http://{ec2-machine-ip}:5008/
+💡 If you face issues:
+- **Ensure Docker is running** (`docker ps`)
+- **Check container logs** (`docker logs deepseek-agent`)
+- **Verify security group settings** (port 5008 must be open)
 
-# if you face any issue to see app html UI on web browser check container running on docker
+---
 
-Command : docker ps
+## 🎯 Expected UI
+Once the setup is successful, you should see the following UI:
 
-# if conatiner is not running on docker check logs
+![DeepSeek-Agent UI](https://github.com/user-attachments/assets/e34e1dec-e24a-4f41-862f-af23096e8bd4)
 
-Command : docker logs deepseek-agent
+---
 
-# debug until you see this UI
+## ✅ Troubleshooting
+If you cannot access the UI:
+1. Ensure the container is running:
+   ```bash
+   docker ps
+   ```
+2. If the container is not running, check logs:
+   ```bash
+   docker logs deepseek-agent
+   ```
+3. Make sure the **EC2 security group** allows traffic on **port 5008**.
+4. Restart the container if necessary:
+   ```bash
+   docker restart deepseek-agent
+   ```
 
-<img width="741" alt="image" src="https://github.com/user-attachments/assets/e34e1dec-e24a-4f41-862f-af23096e8bd4" />
+---
 
+## 🎉 Conclusion
+You have successfully deployed **DeepSeek-Agent** on an AWS EC2 instance using Docker! 🚀
 
+🔹 **Dockerized setup for easy deployment**  
+🔹 **Web-accessible AI agent**  
+🔹 **Secure and scalable**  
 
+Happy Coding! 🎯
 
