@@ -48,4 +48,18 @@ docker run -itd --name deepseek-agent -p 5008:5000 deepseek
 
 http://{ec2-machine-ip}:5008/
 
+# if you face any issue to see app html UI on web browser check container running on docker
+
+Command : docker ps
+
+# if conatiner is not running on docker check logs
+
+Command : docker logs deepseek-agent
+
+# debug until you see this UI
+
+<img width="741" alt="image" src="https://github.com/user-attachments/assets/e34e1dec-e24a-4f41-862f-af23096e8bd4" />
+
+
+
 
